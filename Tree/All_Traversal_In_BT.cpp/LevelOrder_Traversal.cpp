@@ -25,36 +25,26 @@ node* buildTree(node* root){
     if(data==-1)return NULL;
     cout<<"Enter data for inserting in left :"<<endl;
     root->left = buildTree(root->left);
-    cout<<"Enter data fro inserting in right :"<<endl;
+    cout<<"Enter data for inserting in right :"<<endl;
     root->right = buildTree(root->right);
     return root;
 }
 
-//1. Left view in TREE (similarly Right view)
-
-void leftView(node* root){
-    queue<node*>q;
+void LevelOrder(node* root){
+    if(root==NULL) return;
+    queue<node*> q;
     q.push(root);
     while(!q.empty()){
-        int cnt = q.size();
-        for(int i =0;i<cnt;i++){
+        int size = q.size();
+        for(int i = 0;i<size;i++){
             node* curr = q.front();
             q.pop();
-            if(i==0) cout<<curr->data<<" ";
+            cout<<curr->data<<" ";
             if(curr->left) q.push(curr->left);
             if(curr->right) q.push(curr->right);
         }
     }
 }
-
-// 2. Top view in TREE 
-
-int height(node* root){
-    if(root==NULL) return 0;
-    if(root->left==NULL && root->right==NULL) return 1;
-    return 1+max(height(root->left),height(root->right));
-}
-
 
 signed main(){
     node* root = NULL;
@@ -63,12 +53,7 @@ signed main(){
     root = buildTree(root);
     //1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
 
-    //level order traversal
-    // cout<<"Printing the level order traversal"<<endl;
-    // levelOrder(root);
-
-    // leftView(root);
-    cout<<height(root);
+    LevelOrder(root);
 
     return 0;
 
